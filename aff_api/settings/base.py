@@ -147,6 +147,8 @@ MANAGERS = ADMINS
 
 CORS_URLS_REGEX = r"^/api/.*$"  # so we waneted to allow only inputs from /api/
 
+AUTH_USER_MODEL = "users.User"
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
