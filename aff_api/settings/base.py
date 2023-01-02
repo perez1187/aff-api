@@ -149,6 +149,15 @@ CORS_URLS_REGEX = r"^/api/.*$"  # so we waneted to allow only inputs from /api/
 
 AUTH_USER_MODEL = "users.User"
 
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "core_apps.common.exceptions.common_exception_handler",
+    "NON_FIELD_ERRORS_KEY": "error",
+    # "DEFAULT_AUTHENTICATION_CLASSES": (
+    #     "rest_framework_simplejwt.authentication.JWTAuthentication",
+    # ),
+}
+
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
