@@ -7,10 +7,12 @@ from django.shortcuts import render
 from rest_framework import generics
 import io, csv, pandas as pd
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics
 
 from .models import Results
-from .serializers import FileUploadSerializer, SaveFileSerializer
+from .serializers import FileUploadSerializer, SaveFileSerializer, ResultSerializer
+
+from core_apps.nickname.models import Nickname
 
 class UploadFileView(generics.CreateAPIView):
     serializer_class = FileUploadSerializer
@@ -21,24 +23,68 @@ class UploadFileView(generics.CreateAPIView):
         file = serializer.validated_data['file']
         reader = pd.read_csv(file)
         for _, row in reader.iterrows():
-            new_file = Results(
-                       club=row["CLUB"],
-                       nickname=row["NICKNAME"],
-                       agents=row["AGENTS"],
-                       profit_loss=row["PROFIT/LOSS"],
-                       rake=row["RAKE"],
-                       deal=row[" DEAL"],
-                    #    deal=row["DEAL"],
-                       rakeback=row["RAKEBACK"],
-                       adjustment=row["ADJUSTMENT"],
-                       agent_settlement=row["AGENT SETTLEMENT"],
-                       date=row["DATE"],
-                       )
-            new_file.save()
+
+            if Nickname.objects.filter(nickname = row["NICKNAME"],club=row["CLUB"]).exists():
+
+                player = Nickname.objects.get(nickname = row["NICKNAME"],club=row["CLUB"])
+                new_file = Results(
+                        player_nickname=player,
+                        club=row["CLUB"],
+                        nickname=row["NICKNAME"],
+                        agents=row["AGENTS"],
+                        profit_loss=row["PROFIT/LOSS"],
+                        rake=row["RAKE"],
+                        deal=row[" DEAL"],
+                        rakeback=row["RAKEBACK"],
+                        adjustment=row["ADJUSTMENT"],
+                        agent_settlement=row["AGENT SETTLEMENT"],
+                        date=row["DATE"],
+                        )
+                new_file.save()
+           
+            else:
+                
+                # we create new nick& club with User: niezarejestrowany
+                new_nickname = Nickname(
+                    nickname = row["NICKNAME"],
+                    club=row["CLUB"],
+                    # player = 5
+                )
+                new_nickname.save()
+
+                # now we save
+                player = Nickname.objects.get(nickname = row["NICKNAME"],club=row["CLUB"])
+                
+                new_file = Results(
+                        player_nickname=player,
+                        club=row["CLUB"],
+                        nickname=row["NICKNAME"],
+                        agents=row["AGENTS"],
+                        profit_loss=row["PROFIT/LOSS"],
+                        rake=row["RAKE"],
+                        deal=row[" DEAL"],
+                        rakeback=row["RAKEBACK"],
+                        adjustment=row["ADJUSTMENT"],
+                        agent_settlement=row["AGENT SETTLEMENT"],
+                        date=row["DATE"],
+                        )
+                new_file.save()
+
+
         return Response({"status": "success"},
                         status.HTTP_201_CREATED)
 
-
+class ResultsListsAPIView(generics.ListAPIView):
+    serializer_class = ResultSerializer
+    # permission_classes = [
+    #     permissions.IsAuthenticated,
+    # ]
+    queryset = Results.objects.all()
+    # renderer_classes = (ArticlesJSONRenderer,)
+    # pagination_class = ArticlePagination
+    # filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    # filterset_class = ArticleFilter
+    # ordering_fields = ["created_at", "username"]
 
 
 '''

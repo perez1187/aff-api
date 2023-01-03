@@ -9,6 +9,7 @@ urlpatterns = [
     path("api/v1/auth/", include("djoser.urls.jwt")),
     path("api/v1/profiles/", include("core_apps.profiles.urls")),
     path("api/v1/results/", include("core_apps.dsgres.urls")),
+    path("api/v1/nickname/", include("core_apps.nickname.urls")),
 ]
 
 admin.site.site_header = "Rozliczenia Ferran"
