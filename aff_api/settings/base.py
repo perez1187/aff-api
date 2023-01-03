@@ -33,6 +33,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "django_filters",
     "djoser",
     "rest_framework_simplejwt",
  ] 

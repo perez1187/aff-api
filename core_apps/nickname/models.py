@@ -7,14 +7,14 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class Nickname(models.Model):
-    # player profile, default niezarejestrowany
+    
     player = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name=_("user"), related_name="nickname2", default=5   # this has to be change on production
     )
     nickname = models.CharField(verbose_name=_("Nickname"), max_length=100)
     club = models.CharField(verbose_name=_("Club"), max_length=100)
-    # player_rb
-    # player_adjustment
+    player_rb = models.DecimalField(verbose_name=_("Player Rakeback"),max_digits=10, decimal_places=2, null=False, blank=False, default=0.0)
+    player_adjustment = models.DecimalField(verbose_name=_("Player Adjustment"),max_digits=10, decimal_places=2, null=False, blank=False, default=0.0)
 
     def __str__(self):
         return f"{self.player.username}"

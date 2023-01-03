@@ -7,14 +7,21 @@ from django.shortcuts import render
 from rest_framework import generics
 import io, csv, pandas as pd
 from rest_framework.response import Response
-from rest_framework import status, generics
+from rest_framework import status, generics, filters, permissions
+
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Results
 from .serializers import FileUploadSerializer, SaveFileSerializer, ResultSerializer
+from .filters import ResultFilter
 
 from core_apps.nickname.models import Nickname
 
 class UploadFileView(generics.CreateAPIView):
+    permission_classes = [
+        permissions.IsAdminUser,
+    ]
+    
     serializer_class = FileUploadSerializer
     
     def post(self, request, *args, **kwargs):
@@ -75,11 +82,15 @@ class UploadFileView(generics.CreateAPIView):
                         status.HTTP_201_CREATED)
 
 class ResultsListsAPIView(generics.ListAPIView):
+    permission_classes = [
+        permissions.IsAdminUser,
+    ]
+    
     serializer_class = ResultSerializer
-    # permission_classes = [
-    #     permissions.IsAuthenticated,
-    # ]
     queryset = Results.objects.all()
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter,filters.SearchFilter]    
+    filterset_class = ResultFilter
+
     # renderer_classes = (ArticlesJSONRenderer,)
     # pagination_class = ArticlePagination
     # filter_backends = [DjangoFilterBackend, filters.OrderingFilter]

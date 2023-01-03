@@ -15,6 +15,8 @@ class SaveFileSerializer(serializers.Serializer):
 class ResultSerializer(serializers.ModelSerializer):
     
     player_nickname = serializers.ReadOnlyField(source="player_nickname.player.username")
+    player_rb = serializers.ReadOnlyField(source="player_nickname.player_rb")
+    player_adjustment = serializers.ReadOnlyField(source="player_nickname.player_adjustment")
 
     class Meta:
         model = Results
