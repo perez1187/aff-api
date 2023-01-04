@@ -9,4 +9,8 @@ SECRET_KEY = env(
     default="django-insecure-9g&el5ve&&tcvm+ra&&5-_yhd-w!$pefq0^tt9t1#=6c5s^roy",
 )
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1","http://localhost:3000/"]
+
+CORS_ALLOWED_ORIGINS=[
+      "http://localhost:3000/"
+ ]

@@ -10,7 +10,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = [
             "username",
-            "id",
+            "pkid",
             "description",
         ]
 

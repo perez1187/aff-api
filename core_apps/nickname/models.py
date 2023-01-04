@@ -13,7 +13,7 @@ class Nickname(models.Model):
     )
     nickname = models.CharField(verbose_name=_("Nickname"), max_length=100)
     club = models.CharField(verbose_name=_("Club"), max_length=100)
-    player_rb = models.DecimalField(verbose_name=_("Player Rakeback"),max_digits=10, decimal_places=2, null=False, blank=False, default=0.0)
+    player_rb = models.DecimalField(verbose_name=_("Player Rakeback"),max_digits=10, decimal_places=3, null=False, blank=False, default=0.0)
     player_adjustment = models.DecimalField(verbose_name=_("Player Adjustment"),max_digits=10, decimal_places=2, null=False, blank=False, default=0.0)
 
     def __str__(self):
