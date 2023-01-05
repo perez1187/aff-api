@@ -176,8 +176,8 @@ SIMPLE_JWT = {
         "Bearer",
         "JWT",
     ),
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=100),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=100),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=999),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=999),
     "SIGNING_KEY": env(
         "SIGNING_KEY",
         default="cTiizH79Hlcnjul35g9WKjFTV6pyZv1Ii0MovafqWzC5uJrUB9I",
