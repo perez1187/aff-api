@@ -9,7 +9,7 @@ User = get_user_model()
 class Nickname(models.Model):
     
     player = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name=_("user"), related_name="nickname2", default=5   # this has to be change on production
+        User, on_delete=models.CASCADE, verbose_name=_("user"), related_name="nickname2", default=2   # this has to be change on production
     )
     nickname = models.CharField(verbose_name=_("Nickname"), max_length=100)
     club = models.CharField(verbose_name=_("Club"), max_length=100)
