@@ -36,6 +36,7 @@ THIRD_PARTY_APPS = [
     "django_filters",
     "djoser",
     "rest_framework_simplejwt",
+    "corsheaders",
  ] 
 LOCAL_APPS = [ 
     "core_apps.common",
@@ -156,6 +157,8 @@ ADMINS = [("""Perez""", "o.perez1187@gmail.com")]
 MANAGERS = ADMINS
 
 CORS_URLS_REGEX = r"^/api/.*$"  # so we waneted to allow only inputs from /api/
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 AUTH_USER_MODEL = "users.User"
 
