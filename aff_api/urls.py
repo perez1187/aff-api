@@ -12,6 +12,6 @@ urlpatterns = [
     path("api/v1/nickname/", include("core_apps.nickname.urls")),
 ]
 
-admin.site.site_header = "Rozliczenia Ferran"
-admin.site.site_title = "Rozliczenia Ferran API Admin Portal"
-admin.site.index_title = "Witaj na Rozliczenia Ferran API Portal"
+admin.site.site_header = "Settlements Ferran"
+admin.site.site_title = "Settlements Ferran API Admin Portal"
+admin.site.index_title = "Settlements Ferran API Portal"
